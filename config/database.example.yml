@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: localhost
+  username: postgres
+  password: secret
+
+development:
+  <<: *default
+  database: online_chat_bootstrap_development
+
+test:
+  <<: *default
+  database: online_chat_bootstrap_test
+
+production:
+  <<: *default
+  database: online_chat_bootstrap_production
+  username: online_chat_bootstrap
+  password: <%= ENV["ONLINE_CHAT_BOOTSTRAP_DATABASE_PASSWORD"] %>
