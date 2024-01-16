@@ -5,4 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   DEFAULT_PASSWORD = ENV['DEFAULT_PASSWORD'] || 'Example123456_'
+
+  has_many :rooms, dependent: :destroy
+  has_many :messages
 end
