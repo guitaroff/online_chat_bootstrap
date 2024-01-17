@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::Base
+  before_action :check_auth_user, unless: :devise_controller?
   rescue_from ActiveRecord::NotNullViolation, with: :render_invalid_error
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
   private
 
-  def set_current_user
-    @current_user = current_user
-    redirect_to new_user_session_path unless @current_user
+  def check_auth_user
+    redirect_to root_path unless user_signed_in?
   end
 
   def render_invalid_error
