@@ -1,0 +1,16 @@
+<div class="container">
+  <h4>Пользователи</h4>
+  <%= turbo_stream_from "users" %>
+  <div id="users">
+    <%= render @users %>
+  </div>
+
+  <h4>Комнаты</h4>
+  <%= turbo_stream_from "rooms" %>
+  <div id="rooms">
+    <%= render @rooms %>
+  </div>
+
+  <%= form_with(model: @new_room, remote: true, class:'d-flex', data: { controller: "chat_refresh", action: "turbo:submit-end->chat_refresh#clearInput" }) do |f| %>
+  <%= f.text_field :title, class: 'form-control', autocomplete: 'off' %>
+<% end %>

@@ -1,4 +1,11 @@
 class RoomsController < ApplicationController
+  before_action :authenticate_user!
+
+  def index
+    @rooms = Room.public_rooms
+    @users = User.all_except(current_user)
+    @new_room = Room.new
+  end
 
   def show
     @room = Room.find_by!(title: params[:title])
@@ -8,7 +15,6 @@ class RoomsController < ApplicationController
 
   def create
     @new_room = current_user.rooms.create!(title: room_params[:title])
-    @new_room.broadcast_append_to :rooms
   end
 
   private
