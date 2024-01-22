@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
  
-    @room = Room.fetch_room(fetch_room_title(@user, current_user), current_user)
+    @room = Room.fetch_private_room(fetch_room_title(@user, current_user), current_user)
     @messages = @room.messages
     @new_message = current_user.messages.build
   end
